@@ -1,0 +1,22 @@
+{
+  "name": "deepobject",
+  "description": "Simple functions that allow you to assign, or read, nested object values using simple dot notation",
+  "keywords": [
+    "objects",
+    "nested",
+    "javascript"
+  ],
+  "main": "deepobject.js",
+  "version": "0.1.1",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mercmobily/deepobject.git"
+  },
+  "author": {
+    "name": "Tony Mobily"
+  },
+  "dependencies": {
+    "simpledeclare": "0.2.x"
+  }
+}
