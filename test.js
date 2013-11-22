@@ -8,30 +8,6 @@ process.on('uncaughtException', function(err) {
   console.error(err.stack);
 });
 
-/*
-var d = new DO( { a: { b: { c1: 10, c2: 20 } } } );
-
-l( d );
-l( d, 'a' );
-l( d, 'a.b' );
-l( d, 'a.b.c1' );
-l( d, 'a.b.c3' );
-l( d, 'z', "hello" );
-
-d.set( 'a.b.c3', 100 );
-l( d );
-d.set( 'a1', 110 );
-l( d );
-
-d.set( 'z.z.z.z.z.z.z.z.z.z', 120 );
-l( d );
-
-d.set( 'z.z.z', null );
-l( d );
-
-d.set( 'z.z.z.z.z', 150 );
-l( d );
-*/
 
 var tests = {
 
@@ -53,44 +29,60 @@ var tests = {
     var o = { a: { b: { c1: 10, c2: 20 } } };
     var d = new DO( o );
 
+    test.equal( d.get( 'a.b.c1'), 10 );
+    test.deepEqual( d.get( 'a.b'), { c1: 10, c2: 20 } );
+    test.deepEqual( d.get( 'a.b.c.d'), undefined );
+    test.deepEqual( d.get( 'a.b.f'), undefined );
+
     test.done();
   },
 
-  "assign and get a deep value of null": function( test ){
+  "assign and get a deep value with null in path": function( test ){
 
-    var o = { a: { b: { c1: 10, c2: 20 } } };
+    var o = { a: { b: null, c: { c1: 10, c2: 20 } } };
     var d = new DO( o );
 
+    test.equal( d.get( 'a.b.c.d.e'), undefined );
+    test.deepEqual( d.get( 'a.b'), null );
+
     test.done();
   },
 
-  "assign and get a deep value of undefined": function( test ){
+  "assign and get a deep value with undefined in path": function( test ){
 
-    var o = { a: { b: { c1: 10, c2: 20 } } };
+    var o = { a: { b: undefined, c: { c1: 10, c2: 20 } } };
     var d = new DO( o );
 
-    test.done();
-  },
-
-  "getting non-existing values": function( test ){
-
-    var o = { a: { b: { c1: 10, c2: 20 } } };
-    var d = new DO( o );
+    test.equal( d.get( 'a.b'), undefined );
+    test.equal( d.get( 'a.b.c.d.e'), undefined );
 
     test.done();
   },
-
 
   "setting very deep values and getting them": function( test ){
     var o = { a: { b: { c1: 10, c2: 20 } } };
     var d = new DO( o );
+
+    test.equal( d.get( 'a.b.c1'), 10 );
+    d.set( 'a.b.c1', 30 );
+    test.equal( d.get( 'a.b.c1'), 30 );
+
+    test.equal( d.get( 'a.b.c2'), 20 );
+    d.set( 'a.b.c2', { c3: 90, c4: 100 } );
+    test.equal( d.get( 'a.b.c2.c4'), 100 );
+
+    d.set( 'a.b.c2', null );
+    test.equal( d.get( 'a.b.c2.c4'), undefined );
 
     test.done();
   },
 
   "using it with a function": function( test ){
     var o = { a: { b: { c1: 10, c2: 20 } } };
-    var d = new DO( o );
+
+    DO.set( o, 'a.b.c1', 30 );
+    test.deepEqual( o, { a: { b: { c1: 30, c2: 20 } } } );
+    test.deepEqual( DO.get( o, 'a.b.c2' ), 20 );
 
     test.done();
   },
@@ -102,9 +94,6 @@ for( var i in tests ){
   exports[ i ] = tests[ i ];
 }
 
-
-
-console.log( DO.get( { a: { b: 10, c: 20 }, d: 30 }, 'a.e', 100 ) );
 
 function l( d, p ){
   console.log('Getting ' + p );
