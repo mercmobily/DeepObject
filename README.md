@@ -72,13 +72,14 @@ Can you imagine assigning an object like that by hand?
 You can do all of these things without ever worrying about checking if what you are reading is undefined, or worrying about the fact that `null` is `typeof object` and yet will throw errors when you don't want it to.
 
  
-## Using deepobject as a function
+## Using deepobject as a function on any object (get and set)
 
 DeepObject offers a simple way to do one-time queries:
 
     var obj = { a: 10, b: { c: 20, d: 30 } };
     DO.get( obj, 'a.b.d' ) => 30
     DO.get( obj, 'a.b.e', 10000 ) => 10000
+    DO.set( obj, 'a.b.c', 100 ) => 100
 
 This is handy when you have existing objects are are running one-time queries against it.
 
