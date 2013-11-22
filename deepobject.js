@@ -8,7 +8,7 @@ var dummy
 
 
 // Create the enhanced EventEmitter
-exports = module.exports = declare( null, {
+var DeepObject = exports = module.exports = declare( null, {
 
   constructor: function( obj ){
     this._setObj( obj );
@@ -43,6 +43,7 @@ exports = module.exports = declare( null, {
         }
       }
     }
+    return obj;
   },
 
   get: function( path, defaultValue ){
@@ -95,12 +96,37 @@ exports = module.exports = declare( null, {
       // Loop is over, assign it
       obj[ parts[ l - 1 ] ] = value;
     }    
-          
+
+    // Return the set value. Chaining would be pointless
+    return value;    
 
   },
 
 
 });
+
+DeepObject.get = function( obj, path, defaultValue ){
+  o = new DeepObject( obj );
+  return o.get( path, defaultValue );
+}
+
+DeepObject.set = function( obj, path, value ){
+  o = new DeepObject( obj );
+  return o.set( path, value );
+}
+
+
+/*
+    var o = { a: 10, b: { c: 20, d: 30 } };
+    console.log("Object:");
+    console.log( o );
+    var dobj = new DeepObject( o );
+    dobj.set( 'a.b.c.d', 10 );
+    dobj.set( 'a.b.e', 20 );
+    console.log("Object after manipulation:");
+    console.log( require('util').inspect( o, { depth: 10 } ) );
+*/
+   
 
 
 /*
