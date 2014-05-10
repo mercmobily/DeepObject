@@ -66,7 +66,7 @@ var DeepObject = exports = module.exports = declare( null, {
           }
       }
       return obj;
-    }    
+    }
   },
 
 
@@ -75,7 +75,7 @@ var DeepObject = exports = module.exports = declare( null, {
     // Only one parameter: set the whole object
     if( typeof( value ) === 'undefined' ){
       value = path;
-      this._setObj( value ); 
+      this._setObj( value );
 
     // The `path` parameter was passed: set the specific value
     } else {
@@ -95,10 +95,10 @@ var DeepObject = exports = module.exports = declare( null, {
       }
       // Loop is over, assign it
       obj[ parts[ l - 1 ] ] = value;
-    }    
+    }
 
     // Return the set value. Chaining would be pointless
-    return value;    
+    return value;
 
   },
 
@@ -126,7 +126,7 @@ DeepObject.set = function( obj, path, value ){
     console.log("Object after manipulation:");
     console.log( require('util').inspect( o, { depth: 10 } ) );
 */
-   
+
 
 
 /*
@@ -160,4 +160,3 @@ d.set( 'z.z.z.z.z', 150 );
 l( d );
 
 */
-
