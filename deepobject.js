@@ -8,7 +8,7 @@ var dummy
 
 
 // Create the enhanced EventEmitter
-var DeepObject = exports = module.exports = declare( null, {
+var DeepObject = exports = module.exports = declare( Object, {
 
   constructor: function( obj ){
     this._setObj( obj );
