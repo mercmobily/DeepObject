@@ -33,7 +33,7 @@ var DeepObject = exports = module.exports = declare( Object, {
       } else {
 
         // In JS, null happens to be an object. Will need to fail if null is passed
-        if( obj === 'null' ){
+        if( obj === null ){
           throw( new Error("Deepobject's initial object cannot be 'null'") );
           this.obj = {};
 
@@ -127,8 +127,6 @@ DeepObject.set = function( obj, path, value ){
     console.log( require('util').inspect( o, { depth: 10 } ) );
 */
 
-
-
 /*
 function l( d, p ){
   console.log('Getting ' + p );
@@ -136,7 +134,7 @@ function l( d, p ){
   console.log( '' );
 }
 
-var d = new exports( { a: { b: { c1: 10, c2: 20 } } } );
+var d = new DeepObject( { a: { b: { c1: 10, c2: 20 } } } );
 
 l( d );
 l( d, 'a' );
@@ -158,5 +156,4 @@ l( d );
 
 d.set( 'z.z.z.z.z', 150 );
 l( d );
-
 */
