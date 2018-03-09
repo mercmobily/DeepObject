@@ -7,16 +7,26 @@
     "javascript"
   ],
   "main": "deepobject.js",
-  "version": "0.3.9",
+  "version": "0.4.0",
   "private": false,
+  "engines" :
+    {
+      "node" : "~8.x"
+    }
+  }
   "repository": {
     "type": "git",
     "url": "git://github.com/mercmobily/deepobject.git"
+  },
+  "scripts": {
+    "test": "node_modules/nodeunit/bin/nodeunit test.js"
   },
   "author": {
     "name": "Tony Mobily"
   },
   "dependencies": {
-    "simpledeclare": "0.3.x"
+  },
+  "devDependencies": {
+    "nodeunit": "^0.11.2"
   }
 }
